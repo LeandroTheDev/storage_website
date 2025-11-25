@@ -5,7 +5,6 @@ const { spawn } = require('child_process');
 const { rm } = require('fs/promises');
 const sharp = require('sharp');
 
-const administrators = ["admin", "test"];
 const drivePath = path.resolve(__dirname, '../', 'drive');
 const tempPath = path.resolve(__dirname, '../', 'temp');
 
@@ -68,6 +67,10 @@ class DriveStorage {
     }
     // Returns false if the actual user is on administrator list
     static falseConditionIfAdministrator(username) {
+        const {
+            administrators
+        } = require('./utils');
+
         for (let i = 0; i < administrators.length; i++) {
             if (administrators[i] == username) return false
         }

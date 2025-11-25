@@ -1,6 +1,8 @@
 const { rm, readdir } = require('fs/promises');
 const path = require('path');
 
+const administrators = ["admin", "test"];
+
 // Limiar used to check if timestamp from server and client is the same for security porpuses
 const TIMESTAMP_LIMIAR_FOR_AUTH = 10;
 
@@ -93,6 +95,10 @@ function urlFixer(url) {
 */
 function authCheckTreatment(username, auth, resCallBack) {
     try {
+        for (let i = 0; i < administrators.length; i++) {
+            if (administrators[i] == username) return false;
+        }
+
         const [randomNumber, timestamp] = auth.split("-");
 
         // Checking if the token exists
@@ -298,5 +304,6 @@ module.exports = {
     encryptText,
     generateKeyPair,
     cleanTempFolders,
+    administrators,
     tokens
 }
