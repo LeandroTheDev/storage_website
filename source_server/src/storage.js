@@ -316,17 +316,13 @@ class DriveStorage {
         //Dependencies
         const {
             stringsTreatment,
-            authCheckTreatment,
-            decryptText,
+            sessionCheck
         } = require('./utils');
 
-        const auth = decryptText(headers.auth, username);
-
         //Errors Treatments
+        if (sessionCheck(headers.session, res)) { return; }
         if (stringsTreatment(typeof username, res, "Invalid Username", 401)) return;
-        if (authCheckTreatment(username, auth, res)) return;
         if (stringsTreatment(typeof directory, res, "Invalid Directory", 401)) return;
-        delete require("./init").ipTimeout[req.ip];
 
         //Getting the program path
         const userPath = path.resolve(drivePath, username);
@@ -408,17 +404,13 @@ class DriveStorage {
             //Dependencies
             const {
                 stringsTreatment,
-                authCheckTreatment,
-                decryptText
+                sessionCheck
             } = require('./utils');
 
-            const auth = decryptText(headers.auth, username);
-
             //Errors Treatments
+            if (sessionCheck(headers.session, res)) { return; }
             if (stringsTreatment(typeof username, res, "Invalid Username", 401)) return;
-            if (authCheckTreatment(username, auth, res)) return;
             if (stringsTreatment(typeof directory, res, "Invalid Directory", 401)) return;
-            delete require("./init").ipTimeout[req.ip];
         }
 
         // Undefined check
@@ -505,17 +497,13 @@ class DriveStorage {
             //Dependencies
             const {
                 stringsTreatment,
-                authCheckTreatment,
-                decryptText
+                sessionCheck
             } = require('./utils');
 
-            const auth = decryptText(headers.auth, username);
-
             //Errors Treatments
+            if (sessionCheck(headers.session, res)) { return; }
             if (stringsTreatment(typeof username, res, "Invalid Username", 401)) return;
-            if (authCheckTreatment(username, auth, res)) return;
             if (stringsTreatment(typeof directory, res, "Invalid Directory", 401)) return;
-            delete require("./init").ipTimeout[req.ip];
         }
 
         // Undefined check
@@ -559,17 +547,13 @@ class DriveStorage {
         //Dependencies
         const {
             stringsTreatment,
-            authCheckTreatment,
-            decryptText
+            sessionCheck
         } = require('./utils');
 
-        const auth = decryptText(headers.auth, username);
-
         //Errors Treatments
+        if (sessionCheck(headers.session, res)) { return; }
         if (stringsTreatment(typeof username, res, "Invalid Username", 401)) return;
-        if (authCheckTreatment(username, auth, res)) return;
         if (stringsTreatment(typeof directory, res, "Invalid Directory", 401)) return;
-        delete require("./init").ipTimeout[req.ip];
 
         // No image requests
         if (DriveStorage.imageRequests[req.ip] == undefined || DriveStorage.imageRequests[req.ip][directory] == undefined) {
@@ -614,17 +598,13 @@ class DriveStorage {
         //Dependencies
         const {
             stringsTreatment,
-            authCheckTreatment,
-            decryptText
+            sessionCheck
         } = require('./utils');
 
-        const auth = decryptText(headers.auth, username);
-
         //Errors Treatments
+        if (sessionCheck(headers.session, res)) { return; }
         if (stringsTreatment(typeof username, res, "Invalid Username", 401)) return;
-        if (authCheckTreatment(username, auth, res)) return;
         if (stringsTreatment(typeof directory, res, "Invalid Directory", 401)) return;
-        delete require("./init").ipTimeout[req.ip];
 
         // No thumb requests
         if (DriveStorage.imageRequests[req.ip] == undefined || DriveStorage.imageRequests[req.ip][directory] == undefined) {
@@ -676,17 +656,13 @@ class DriveStorage {
             //Dependencies
             const {
                 stringsTreatment,
-                authCheckTreatment,
-                decryptText
+                sessionCheck
             } = require('./utils');
 
-            const auth = decryptText(headers.auth, username);
-
             //Errors Treatments
+            if (sessionCheck(headers.session, res)) { return; }
             if (stringsTreatment(typeof username, res, "Invalid Username", 401)) return;
-            if (authCheckTreatment(username, auth, res)) return;
             if (stringsTreatment(typeof directory, res, "Invalid Directory", 401)) return;
-            delete require("./init").ipTimeout[req.ip];
         }
 
         // Undefined check
@@ -731,17 +707,13 @@ class DriveStorage {
         //Dependencies
         const {
             stringsTreatment,
-            authCheckTreatment,
-            decryptText
+            sessionCheck
         } = require('./utils');
 
-        const auth = decryptText(headers.auth, username);
-
         //Errors Treatments
+        if (sessionCheck(headers.session, res)) { return; }
         if (stringsTreatment(typeof username, res, "Invalid Username", 401)) return;
-        if (authCheckTreatment(username, auth, res)) return;
         if (stringsTreatment(typeof userDirectory, res, "Invalid Directory", 401)) return;
-        delete require("./init").ipTimeout[req.ip];
 
         const directory = userDirectory.substring(0, userDirectory.lastIndexOf('.')) + userDirectory.substring(userDirectory.lastIndexOf('.'));
 
@@ -807,15 +779,12 @@ class DriveStorage {
         //Dependencies
         const {
             stringsTreatment,
-            authCheckTreatment,
-            decryptText
+            sessionCheck
         } = require('./utils');
 
-        const auth = decryptText(headers.auth, username);
-
         //Errors Treatments
+        if (sessionCheck(headers.session, res)) { return; }
         if (stringsTreatment(typeof username, res, "Invalid Username", 401)) return;
-        if (authCheckTreatment(username, auth, res)) return;
         if (stringsTreatment(typeof directory, res, "Invalid Directory", 403)) return;
         if (path.basename(directory) == ".temp_convert") {
             res.status(403).send({ error: true, message: "Invalid Directory, directory cannot be '.temp_convert'" });
@@ -825,7 +794,6 @@ class DriveStorage {
             res.status(403).send({ error: true, message: "Invalid Directory, directory cannot be '.temp_download'" });
             return;
         }
-        delete require("./init").ipTimeout[req.ip];
 
         //Getting the program path
         const userPath = path.resolve(drivePath, username);
@@ -844,17 +812,13 @@ class DriveStorage {
         //Dependencies        
         const {
             stringsTreatment,
-            authCheckTreatment,
-            decryptText
+            sessionCheck
         } = require('./utils');
 
-        const auth = decryptText(headers.auth, username);
-
         //Errors Treatments
+        if (sessionCheck(headers.session, res)) { return; }
         if (stringsTreatment(typeof username, res, "Invalid Username", 403)) return;
-        if (authCheckTreatment(username, auth, res)) return;
         if (stringsTreatment(typeof item, res, "Invalid Directory", 403)) return;
-        delete require("./init").ipTimeout[req.ip];
         const userPath = path.resolve(drivePath, username);
 
         let error = false;
@@ -899,15 +863,13 @@ class DriveStorage {
         //Dependencies            
         const {
             stringsTreatment,
-            authCheckTreatment,
-            decryptText
+            sessionCheck
         } = require('./utils');
 
         const headers = req.headers;
         const username = headers.username;
 
-        const auth = decryptText(headers.auth, username);
-        if (authCheckTreatment(username, auth, res)) return;
+        if (sessionCheck(headers.session, res)) { return; }
 
         // Prepare function to receive any file
         const uploader = multer({
@@ -996,18 +958,14 @@ class DriveStorage {
         //Dependencies
         const {
             stringsTreatment,
-            authCheckTreatment,
             urlTreatment,
-            decryptText
+            sessionCheck
         } = require('./utils');
 
-        const auth = decryptText(headers.auth, username);
-
         //Errors Treatments
+        if (sessionCheck(headers.session, res)) { return; }
         if (stringsTreatment(typeof username, res, "Invalid Username", 401)) return;
-        if (authCheckTreatment(username, auth, res)) return;
         if (urlTreatment(videoLink, res, "Invalid video link, please recheck the link provided.", 401)) return;
-        delete require("./init").ipTimeout[req.ip];
 
         //Getting the program path
         const userPath = path.resolve(drivePath, username);
